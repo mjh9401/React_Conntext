@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import axiso from 'axios'
 import Products from './Products'
 import Options from './Options'
+import ErrorBanner from './ErrorBanner'
 
 /**
  * 주문 종류
@@ -10,17 +11,19 @@ import Options from './Options'
  */
 const Type = ({orderType}) => {
     const [Items, setItems] = useState([]);
+    const [error, setError] = useState(false);
 
     useEffect(() => {
         loadItems(orderType);
     }, [orderType])
 
+    // 서버에서 상품 데이터 호출
     const loadItems = async(orderType) =>{
         try {
             const repsone = await axiso.get(`http://localhost:4000/${orderType}`);
             setItems(repsone.data);
         } catch (error) {
-           console.error(error);
+           setError(true);
         }
     }
 
@@ -32,6 +35,10 @@ const Type = ({orderType}) => {
             imagePath={item.imagePath}
         />
     ))
+
+    if(error){
+        return(<ErrorBanner message="에러가 발생했습니다."/>)
+    }
 
 
     return (
