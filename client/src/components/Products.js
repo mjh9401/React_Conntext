@@ -1,12 +1,17 @@
 import React from 'react'
 
 /**
- * 제품목록
- * @param {*} param0 
+ * 제품목록 컴포넌트
+ * @param name : 이미지 이름
+ * @param imagePath : 이미지 경로
  * @returns 
  */
-const Products = ({name,imagePath}) => {
-  
+const Products = ({name,imagePath,updateItemCount}) => {
+  const handleChange = (event) =>{
+    const currentValue = event.target.value;
+    updateItemCount(name,currentValue);
+  }
+
   return (
     <div style={{textAlign:'center'}}>
       <img
@@ -22,6 +27,7 @@ const Products = ({name,imagePath}) => {
           name='quantity'
           min="0"
           defaultValue={0}
+          onChange={handleChange}
         />
       </form>
     </div>
