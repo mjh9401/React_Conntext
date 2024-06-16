@@ -53,6 +53,11 @@ export function OrderContextProvider(props){
         return [{...orderCounts,totals}, updateItemCount]
     }, [orderCounts,totals])
 
-
+    // <OrderContext.Provider value={value} {...props} />
+    // {...props}은 
+    // <OrderContextProvider>
+    //     <App />
+    // </OrderContextProvider>
+    // <OrderContextProvider> 안에 있는 모든 컴포넌트를 의미
     return <OrderContext.Provider value={value} {...props} />
 }
